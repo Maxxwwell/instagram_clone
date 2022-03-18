@@ -2,7 +2,7 @@ import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import React from 'react';
 import {ThemeProvider} from 'styled-components';
-import BottomTabs from './app/components/BottomTabs';
+import BottomTabs from './app/components/bottomTabs/BottomTabs';
 import Login from './app/screens/auth/login/Login';
 import Signup from './app/screens/auth/signup/Signup';
 import {theme} from './app/theme';

@@ -3,11 +3,14 @@ import { View, Text } from 'react-native';
 import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Icon from 'react-native-vector-icons/Ionicons';
-import Home from '../screens/home/Home';
-import Search from '../screens/search/Search';
-import { colors } from '../theme/colors';
-import Video from '../screens/video/Video';
-import Bag from '../screens/bag/Bag';
+import Home from '../../screens/home/Home';
+import Search from '../../screens/search/Search';
+import { colors } from '../../theme/colors';
+import Video from '../../screens/video/Video';
+import Bag from '../../screens/bag/Bag';
+import { TabIcon } from './style';
+import icons from '../../theme/icons';
+import Profile from '../../screens/profile/Profile';
 
 const Tab = createBottomTabNavigator();
 
@@ -19,7 +22,7 @@ export default function BottomTabs() {
                     header: () => null,
                     tabBarShowLabel: false,
                     tabBarStyle: {
-                        elevation: 5,
+                        elevation: 0,
                         height: 60,
                         bottom: 0,
                         left: 0,
@@ -31,15 +34,17 @@ export default function BottomTabs() {
                         let iconName;
 
                         if (route.name === 'Home') {
-                            iconName = focused ? 'home-sharp' : 'home-outline';
+                            iconName = focused ? icons.homefill : icons.home;
                         } else if (route.name === 'Search') {
-                            iconName = focused ? 'search' : 'search-outline';
+                            iconName = focused ? icons.searchfill : icons.search;
                         } else if (route.name === 'Video') {
-                            iconName = focused ? 'videocam' : 'videocam-outline';
+                            iconName = focused ? icons.reelsfill : icons.reels;
                         } else if (route.name === 'Bag') {
-                            iconName = focused ? 'basket' : 'basket-outline';
+                            iconName = focused ? icons.bagfill : icons.bag;
+                        } else if (route.name === 'Profile') {
+                            iconName = focused ? icons.user : icons.user;
                         }
-                        return <Icon name={iconName} size={28} color={colors.white} />;
+                        return <TabIcon source={iconName} />;
                     },
                 })
             }
@@ -48,6 +53,8 @@ export default function BottomTabs() {
             <Tab.Screen name="Search" component={Search} />
             <Tab.Screen name="Video" component={Video} />
             <Tab.Screen name="Bag" component={Bag} />
+            <Tab.Screen name="Profile" component={Profile} />
+
 
 
 
