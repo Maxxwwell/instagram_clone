@@ -11,10 +11,11 @@ const searchfill = require('../../assets/icons/search-fill.png');
 const reels = require('../../assets/icons/reels.png');
 const reelsfill = require('../../assets/icons/reels-fill.png');
 const messenger = require('../../assets/icons/messenger.png');
+const bookmark = require('../../assets/icons/bookmark.png');
+const bookmarkfill = require('../../assets/icons/bookmark-fill.png');
+const share = require('../../assets/icons/sent.png');
+const comment = require('../../assets/icons/speech-bubble.png');
 const user = require('../../assets/icons/user.png');
-
-
-
 
 export default {
     add,
@@ -30,4 +31,8 @@ export default {
     reelsfill,
     messenger,
     user,
+    bookmark,
+    bookmarkfill,
+    share,
+    comment,
 };
