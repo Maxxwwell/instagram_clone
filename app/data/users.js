@@ -20,7 +20,7 @@ export const USERS = [
     },
     {
         id: 4,
-        user: 'Jess',
+        user: 'Cindy',
         image:
             'https://www.whatsappprofiledpimages.com/wp-content/uploads/2021/11/2021-Beautiful-Whatsapp-Dp-Profile-Images-For-Girl-download.gif',
     },

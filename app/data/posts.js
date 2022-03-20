@@ -10,11 +10,11 @@ export const POSTS = [
         comments: [
             {
                 user: USERS[4].user,
-                comment: 'Keeping it witcher',
+                comment: 'Keeping it Witcher! 😂😂😂🔥🔥👌👌👌👌💯💯💯',
             },
             {
                 user: 'Butch',
-                comment: 'Clutch!',
+                comment: 'Clutch! 💏💏💏',
             },
         ],
         caption: 'Cirri of Rivia 🤗😝🤗😱',
@@ -35,6 +35,11 @@ export const POSTS = [
                 user: 'Butch',
                 comment: '😍😍😍😂😂😍😍💯💯💯💯💯😋',
             },
+            {
+                user: 'unruly',
+                comment: ' 💩❤️😂',
+            },
+
         ],
 
     },

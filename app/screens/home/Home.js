@@ -7,10 +7,10 @@ import Stories from '../../components/stories/Stories';
 import Post from '../../components/post/Post';
 import { POSTS } from '../../data/posts';
 
-export default function Home() {
+export default function Home({navigation}) {
   return (
     <Scaffold>
-      <AppBar />
+      <AppBar navigation={navigation}/>
       <Stories />
       <ScrollView>
         {

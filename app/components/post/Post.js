@@ -1,7 +1,7 @@
 /* eslint-disable prettier/prettier */
 import { View, Text, TouchableOpacity } from 'react-native';
 import React from 'react';
-import { CaptionText, ImagePost, ImagePostContainer, LikesContainer, LikesText, ListTile, PostContainer, PostHeaderContainer, PostIcon, PostIconContainer, PostText, ProfilePicture, ProfileWidget } from './styles';
+import { CaptionText, CommentContainer, ImagePost, ImagePostContainer, LikesContainer, LikesText, ListTile, PostContainer, PostHeaderContainer, PostIcon, PostIconContainer, PostText, ProfilePicture, ProfileWidget, ViewComment } from './styles';
 import { Divider } from 'react-native-elements';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { colors } from '../../theme/colors';
@@ -17,7 +17,9 @@ export default function Post({ post }) {
       <PostImage post={post} />
       <PostFooter />
       <Likes post={post} />
-      <Caption post={post}/>
+      <Caption post={post} />
+      <CommentSection post={post} />
+      <Comments post={post} />
     </PostContainer>
 
   );
@@ -76,4 +78,34 @@ const Caption = ({ post }) => (
     <PostText>{post.user}</PostText>
     <CaptionText>{post.caption}</CaptionText>
   </LikesContainer>
+);
+
+const CommentSection = ({ post }) => (
+  <CommentContainer>
+    {/* the !! before the post is for if the condition is false */}
+    {!!post.comments.length && (
+      <ViewComment>
+        View
+        {post.comments.length > 1 ? ' all' : ''} {post.comments.length}
+        {post.comments.length > 1 ? ' comments' : ' comment'}
+      </ViewComment>
+    )
+
+    }
+  </CommentContainer>
+);
+
+const Comments = ({ post }) => (
+  <>
+    {post.comments.map((comment, index) => (
+      <CommentContainer key={index}>
+        <PostText>{comment.user}</PostText>
+        <CaptionText>{
+          comment.comment.length > 40 ? comment.comment.slice(0, 38).toLowerCase() + '...'
+            : comment.comment
+        }
+        </CaptionText>
+      </CommentContainer>
+    ))}
+  </>
 );

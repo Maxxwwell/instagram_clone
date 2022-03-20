@@ -5,7 +5,7 @@ import { Actions, HeaderContainer, HeaderText, Logo, UnreadBadge, UnreadBadgeTex
 import icons from '../../theme/icons';
 import { TabIcon } from '../bottomTabs/style';
 
-export default function AppBar() {
+export default function AppBar({ navigation }) {
     return (
         <HeaderContainer>
             <StatusBar backgroundColor="black" />
@@ -14,13 +14,13 @@ export default function AppBar() {
             </TouchableOpacity>
 
             <Actions>
-                <TouchableOpacity>
+                <TouchableOpacity onPress={() => navigation.navigate('AddPost')}>
                     <TabIcon source={icons.add} />
                 </TouchableOpacity>
-                <TouchableOpacity>
+                <TouchableOpacity onPress={() => navigation.navigate('LikedPost')} >
                     <TabIcon source={icons.love} />
                 </TouchableOpacity>
-                <TouchableOpacity>
+                <TouchableOpacity onPress={() => navigation.navigate('Messages')} >
                     <UnreadBadge>
                         <UnreadBadgeText>11</UnreadBadgeText>
                     </UnreadBadge>
