@@ -17,7 +17,7 @@ export default function AddNewPost({ navigation }) {
                 <TitleText />
             </HeaderItems>
 
-            <FormikpostUploader />
+            <FormikpostUploader navigation={navigation} />
 
         </NewPostContainer>
     );

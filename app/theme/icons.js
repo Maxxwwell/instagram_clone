@@ -16,6 +16,9 @@ const bookmarkfill = require('../../assets/icons/bookmark-fill.png');
 const share = require('../../assets/icons/sent.png');
 const comment = require('../../assets/icons/speech-bubble.png');
 const user = require('../../assets/icons/user.png');
+const logo = require('../../assets/icons/instagram.png');
+
+
 
 export default {
     add,
@@ -35,4 +38,5 @@ export default {
     bookmarkfill,
     share,
     comment,
+    logo,
 };

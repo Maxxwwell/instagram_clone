@@ -14,13 +14,18 @@ const uploadPostScheme = yup.object().shape({
     caption: yup.string().max(2200, 'Caption has reached the character limit.'),
 });
 
-export default function FormikpostUploader() {
+export default function FormikpostUploader({navigation}) {
     const [thumbnailUrl, setThumbnailUrl] = useState(PLACEHOLDER_IMG);
 
     return (
         <Formik
             initialValues={{ caption: '', imageUrl: '' }}
-            onSubmit={(values) => console.log(values)}
+            onSubmit={(values) => {
+                console.log(values);
+                console.log('Your post was submitted');
+                navigation.goBack();
+            }}
+
             validationSchema={uploadPostScheme}
         // validateOnMount={true}
         >
