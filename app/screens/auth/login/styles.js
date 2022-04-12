@@ -1,5 +1,5 @@
 /* eslint-disable prettier/prettier */
-import { Image, Pressable, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import { ActivityIndicator, Image, Pressable, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import styled from 'styled-components';
 
 export const Scaffold = styled(View)`
@@ -82,4 +82,10 @@ export const SignupContainer = styled(View)`
 export const AccountText = styled(Text)`
     font-weight: 600;
     font-size: 16px;
+`;
+
+
+export const Loading = styled(ActivityIndicator)`
+flex: 1;
+justify-content: center;
 `;

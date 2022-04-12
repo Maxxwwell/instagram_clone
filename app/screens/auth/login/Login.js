@@ -1,12 +1,13 @@
 /* eslint-disable prettier/prettier */
-import { View, Text, StatusBar, TouchableOpacity } from 'react-native';
+import { View, Text, StatusBar, TouchableOpacity, Alert, ActivityIndicator } from 'react-native';
 import React from 'react';
-import { AccountText, ForgortPassword, ForgortPasswordText, LoginButton, LoginForm, LoginText, Logo, LogoContainer, NotValid, Scaffold, SignupContainer, TextField } from './styles';
+import { AccountText, ForgortPassword, ForgortPasswordText, Loading, LoginButton, LoginForm, LoginText, Logo, LogoContainer, NotValid, Scaffold, SignupContainer, TextField } from './styles';
 import icons from '../../../theme/icons';
 import * as yup from 'yup';
 import { Formik } from 'formik';
 import Validator from 'email-validator';
 import { colors } from '../../../theme/colors';
+import { LOGIN } from '../../../../firebase';
 
 export default function Login({ navigation }) {
 
@@ -15,84 +16,102 @@ export default function Login({ navigation }) {
     password: yup.string().required().min(6, 'Password must be at least 6 characters'),
   });
 
+  // const [isLoading, setIsLoading] = React.useState(false);
+
+  const onLogin = async (email, password) => {
+    try {
+      await LOGIN(email, password);
+      console.log('firebase login success', email, password);
+    } catch (error) {
+      Alert.alert(
+        'An error occurred',
+        error.message);
+    }
+  };
+
+
   return (
-    <Scaffold>
+      <Scaffold>
       <StatusBar backgroundColor="black" />
 
-      <Formik
-        initialValues={{ email: '', password: '' }}
-        onSubmit={values => {
-          console.log(values);
-        }}
-        validationSchema={LoginFormSchema}
-        validateOnMount={true}
-      >
-        {({ handleChange, handleBlur, handleSubmit, values, isValid }) => (
+          <Formik
+            initialValues={{ email: '', password: '' }}
+            onSubmit={values => {
+              onLogin(values.email, values.password);
+            }}
+            validationSchema={LoginFormSchema}
+            validateOnMount={true}
+          >
+            {({ handleChange, handleBlur, handleSubmit, values, isValid }) => (
 
-          <>
-            <LogoContainer>
-              <Logo source={icons.logo} />
-            </LogoContainer>
+              <>
+                <LogoContainer>
+                  <Logo source={icons.logo} />
+                </LogoContainer>
 
-            <LoginForm>
-              <TextField
-                style={{
-                  borderColor: values.email.length < 1 || Validator.validate(values.email) ? colors.grey : 'red',
-                }}
-                placeholderTextColor="#444"
-                placeholder="Phone number, username or email"
-                autoCapitalize="none"
-                keyboardType="email-address"
-                textContentType="emailAddress"
-                onChangeText={handleChange('email')}
-                onBlur={handleBlur('email')}
-                value={values.email}
-              />
+                <LoginForm>
+                  <TextField
+                    style={{
+                      borderColor: values.email.length < 1 || Validator.validate(values.email) ? colors.grey : 'red',
+                    }}
+                    placeholderTextColor="#444"
+                    placeholder="Phone number, username or email"
+                    autoCapitalize="none"
+                    keyboardType="email-address"
+                    textContentType="emailAddress"
+                    onChangeText={handleChange('email')}
+                    onBlur={handleBlur('email')}
+                    value={values.email}
+                  />
 
-              <TextField
-                style={{
-                  borderColor: values.password.length === 0 ? colors.grey : null || values.password.length < 6
-                    ? 'red' : colors.grey,
-                }}
-                placeholderTextColor="#444"
-                placeholder="Password"
-                autoCapitalize="none"
-                autoCorrect={false}
-                textContentType="password"
-                secureTextEntry={true}
-                onChangeText={handleChange('password')}
-                onBlur={handleBlur('password')}
-                value={values.password}
-              />
+                  <TextField
+                    style={{
+                      borderColor: values.password.length === 0 ? colors.grey : null || values.password.length < 6
+                        ? 'red' : colors.grey,
+                    }}
+                    placeholderTextColor="#444"
+                    placeholder="Password"
+                    autoCapitalize="none"
+                    autoCorrect={false}
+                    textContentType="password"
+                    secureTextEntry={true}
+                    onChangeText={handleChange('password')}
+                    onBlur={handleBlur('password')}
+                    value={values.password}
+                  />
 
-              <ForgortPassword>
-                <ForgortPasswordText>Forgot password?</ForgortPasswordText>
-              </ForgortPassword>
+                  <ForgortPassword>
+                    <ForgortPasswordText>Forgot password?</ForgortPasswordText>
+                  </ForgortPassword>
 
-            </LoginForm>
+                </LoginForm>
 
-            {
-              isValid ?
-                <LoginButton onPress={handleSubmit} disabled={!isValid}>
-                  <LoginText>Log In</LoginText>
-                </LoginButton>
-                :
-                <NotValid>
-                  <LoginText>Log In</LoginText>
-                </NotValid>
-            }
+                {
+                  isValid ?
+                    <LoginButton onPress={handleSubmit} disabled={!isValid}>
+                      <LoginText>
+                        Log In
+                      </LoginText>
+                    </LoginButton>
+                    :
+                    <NotValid>
+                      <LoginText>Log In</LoginText>
+                    </NotValid>
+                }
 
 
-            <SignupContainer>
-              <AccountText>Don't have an account?</AccountText>
-              <TouchableOpacity onPress={() => navigation.navigate('Signup')} >
-                <ForgortPasswordText> Sign Up</ForgortPasswordText>
-              </TouchableOpacity>
-            </SignupContainer>
-          </>
-        )}
+                <SignupContainer>
+                  <AccountText>Don't have an account?</AccountText>
+                  <TouchableOpacity onPress={() => navigation.navigate('Signup')} >
+                    <ForgortPasswordText> Sign Up</ForgortPasswordText>
+                  </TouchableOpacity>
+                </SignupContainer>
+              </>
+            )}
 
-      </Formik>
+          </Formik>
+
+
     </Scaffold >
   );
 }

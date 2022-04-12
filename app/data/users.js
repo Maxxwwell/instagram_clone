@@ -27,6 +27,7 @@ export const USERS = [
     {
         id: 5,
         user: 'Abigail',
-        image: 'https://wallpapercave.com/wp/wp7992199.jpg',
+        image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR9yfTpcZkcKYMMpvx_5LZrxxuUfD9R2iZkqVUZYRW7UNpaDLhd9cv6RD5QY2qswmN44N0&usqp=CAU',
+
     },
 ];

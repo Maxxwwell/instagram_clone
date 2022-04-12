@@ -14,8 +14,9 @@ const uploadPostScheme = yup.object().shape({
     caption: yup.string().max(2200, 'Caption has reached the character limit.'),
 });
 
-export default function FormikpostUploader({navigation}) {
+export default function FormikpostUploader({ navigation }) {
     const [thumbnailUrl, setThumbnailUrl] = useState(PLACEHOLDER_IMG);
+    const [currentLoggedInUser, setCurrentLoggedInUser] = useState();
 
     return (
         <Formik

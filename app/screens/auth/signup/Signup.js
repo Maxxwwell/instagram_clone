@@ -1,12 +1,14 @@
 /* eslint-disable prettier/prettier */
-import { View, Text, StatusBar, TouchableOpacity } from 'react-native';
+import { View, Text, StatusBar, TouchableOpacity, Alert, ActivityIndicator } from 'react-native';
 import React from 'react';
-import { AccountText, ForgortPassword, ForgortPasswordText, LoginButton, LoginForm, LoginText, Logo, LogoContainer, NotValid, Scaffold, SignupContainer, TextField } from '../login/styles';
+import { AccountText, ForgortPassword, ForgortPasswordText, Loading, LoginButton, LoginForm, LoginText, Logo, LogoContainer, NotValid, Scaffold, SignupContainer, TextField } from '../login/styles';
 import * as yup from 'yup';
 import { Formik } from 'formik';
 import Validator from 'email-validator';
 import { colors } from '../../../theme/colors';
 import icons from '../../../theme/icons';
+import { db, SIGNUP } from '../../../../firebase';
+import { addDoc, collection, doc, setDoc } from '@firebase/firestore';
 
 
 export default function Signup({ navigation }) {
@@ -18,13 +20,44 @@ export default function Signup({ navigation }) {
 
   });
 
+  const getRandomProfilePicture = async () => {
+    const response = await fetch('https://randomuser.me/api/');
+    const data = await response.json();
+    return data.results[0].picture.large;
+  };
+
+
+  const onSignup = async (email, password, username) => {
+    try {
+      const authUser = await SIGNUP(email, password, username);
+      console.log('firebase sign up was successful', email, username, password);
+
+      const docRef = await addDoc(collection(db, 'users'), {
+        owner_uid: authUser.user.uid,
+        username: username,
+        email: authUser.user.email,
+        profile_picture: await getRandomProfilePicture(),
+      });
+      console.log('Document written with ID: ', docRef.id);
+    } catch (error) {
+      Alert.alert(
+        'An error occurred',
+        error.message);
+    }
+  };
+
+  // const [isLoading, setIsLoading] = React.useState(false);
+
+
   return (
+
     <Scaffold>
       <StatusBar backgroundColor="black" />
+
       <Formik
         initialValues={{ email: '', username: '', password: '' }}
         onSubmit={values => {
-          console.log(values);
+          onSignup(values.email, values.username, values.password);
         }}
         validationSchema={SignupFormSchema}
         validateOnMount={true}
@@ -68,7 +101,7 @@ export default function Signup({ navigation }) {
               <TextField
                 style={{
                   borderColor: values.password.length === 0 ? colors.grey : null || values.password.length < 6
-                  ? 'red' : colors.grey,
+                    ? 'red' : colors.grey,
                 }}
                 placeholderTextColor="#444"
                 placeholder="Password"
@@ -86,7 +119,7 @@ export default function Signup({ navigation }) {
             {
               isValid ?
                 <LoginButton onPress={handleSubmit} disabled={!isValid}>
-                  <LoginText>Log In</LoginText>
+                  <LoginText>Sign Up</LoginText>
                 </LoginButton>
                 :
                 <NotValid>
@@ -105,6 +138,8 @@ export default function Signup({ navigation }) {
         )}
 
       </Formik>
+
     </Scaffold>
+
   );
 }

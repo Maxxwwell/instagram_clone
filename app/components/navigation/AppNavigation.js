@@ -11,41 +11,49 @@ import LikedPost from '../../screens/likedPost/LikedPost';
 
 const Stack = createNativeStackNavigator();
 
-export default function AppNavigation() {
-  return (
-    <NavigationContainer>
-      <Stack.Navigator initialRouteName="Login">
-        <Stack.Screen
-          options={{ headerShown: false }}
-          name="Login"
-          component={Login}
-        />
-        <Stack.Screen
-          options={{ headerShown: false }}
-          name="Signup"
-          component={Signup}
-        />
-        <Stack.Screen
-          options={{ headerShown: false }}
-          name="BottomTabs"
-          component={BottomTabs}
-        />
-        <Stack.Screen
-          options={{ headerShown: false }}
-          name="AddPost"
-          component={NewPost}
-        />
-        <Stack.Screen
-          options={{ headerShown: false }}
-          name="Messages"
-          component={Messages}
-        />
-        <Stack.Screen
-          options={{ headerShown: false }}
-          name="LikedPost"
-          component={LikedPost}
-        />
-      </Stack.Navigator>
-    </NavigationContainer>
-  );
-}
+export const SignedInStack = () => (
+
+  <NavigationContainer>
+    <Stack.Navigator initialRouteName="BottomTabs">
+
+      <Stack.Screen
+        options={{ headerShown: false }}
+        name="BottomTabs"
+        component={BottomTabs}
+      />
+      <Stack.Screen
+        options={{ headerShown: false }}
+        name="AddPost"
+        component={NewPost}
+      />
+      <Stack.Screen
+        options={{ headerShown: false }}
+        name="Messages"
+        component={Messages}
+      />
+      <Stack.Screen
+        options={{ headerShown: false }}
+        name="LikedPost"
+        component={LikedPost}
+      />
+    </Stack.Navigator>
+  </NavigationContainer>
+);
+
+export const SignedOutStack = () => (
+
+  <NavigationContainer>
+    <Stack.Navigator initialRouteName="Login">
+      <Stack.Screen
+        options={{ headerShown: false }}
+        name="Login"
+        component={Login}
+      />
+      <Stack.Screen
+        options={{ headerShown: false }}
+        name="Signup"
+        component={Signup}
+      />
+    </Stack.Navigator>
+  </NavigationContainer>
+);
